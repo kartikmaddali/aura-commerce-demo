@@ -187,3 +187,103 @@ export interface SearchParams {
   page?: number;
   limit?: number;
 }
+
+// Enhanced AI types for Auth0 AI use cases
+export interface AIAgent {
+  id: string;
+  type: 'chatbot' | 'background-worker' | 'recommendation-engine';
+  userId: string;
+  action: string;
+  permissions: string[];
+  expiresAt: string;
+  token: string;
+}
+
+export interface StoredToken {
+  id: string;
+  userId: string;
+  tokenType: 'google' | 'github' | 'openai' | 'stripe';
+  tokenValue: string;
+  metadata?: any;
+  createdAt: string;
+  expiresAt: string;
+}
+
+export interface AsyncAuthorization {
+  agentId: string;
+  taskType: 'order_processing' | 'inventory_update' | 'recommendation_generation';
+  resources: string[];
+  permissions: string[];
+  expiresAt: string;
+  authorizationToken: string;
+  constraints: {
+    maxOrdersPerMinute: number;
+    maxInventoryUpdates: number;
+    allowedBrands: string[];
+  };
+}
+
+export interface AuthorizedDocument {
+  id: string;
+  title: string;
+  content: string;
+  accessLevel: 'basic' | 'user' | 'b2b' | 'premium';
+  brand?: string;
+  userId?: string;
+  organizationId?: string;
+}
+
+export interface FGAResponse {
+  query: string;
+  documents: AuthorizedDocument[];
+  totalFound: number;
+  fgaContext: {
+    userId: string;
+    roles: string[];
+    organizationId?: string;
+    brand: string;
+    permissions: string[];
+  };
+}
+
+// Enhanced AIContext with FGA
+export interface AIContext {
+  user?: string;
+  brand?: string;
+  roles?: string[];
+  organizationId?: string;
+  isPremium?: boolean;
+  preferences?: {
+    categories: string[];
+    priceRange: string;
+    style: string;
+  };
+  recentActivity?: {
+    lastOrder: string;
+    wishlistItems: number;
+    totalOrders: number;
+  };
+  fgaPermissions?: string[];
+}
+
+// Enhanced AIMessage with FGA context
+export interface AIMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  context?: {
+    productId?: string;
+    orderId?: string;
+    userContext?: {
+      userId?: string;
+      brand?: string;
+      roles?: string[];
+      organizationId?: string;
+      isPremium?: boolean;
+      permissions?: string[];
+    };
+    messageContext?: any;
+    fgaEnforced?: boolean;
+  };
+}
