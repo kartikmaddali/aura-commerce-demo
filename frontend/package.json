@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:acul": "chmod +x scripts/dev-with-tunnel.sh && ./scripts/dev-with-tunnel.sh",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "deploy": "chmod +x scripts/deploy-vercel.sh && ./scripts/deploy-vercel.sh",
+    "deploy:vercel": "vercel --prod"
   },
   "dependencies": {
     "next": "14.0.0",

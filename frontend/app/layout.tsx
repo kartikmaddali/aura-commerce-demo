@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import { BrandProvider } from '@/components/providers/BrandProvider';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 import { AIProvider } from '@/components/providers/AIProvider';
 import { Toaster } from 'react-hot-toast';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Aura Commerce Group',
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans">
         <BrandProvider>
           <AuthProvider>
             <AIProvider>

@@ -104,7 +104,7 @@ export function CategoryGrid() {
 
   if (!brand) return null;
 
-  const categories = categoryData[brand.name] || [];
+  const categories = categoryData[brand.name as keyof typeof categoryData] || [];
 
   const getBrandStyles = () => {
     switch (brand.name) {
