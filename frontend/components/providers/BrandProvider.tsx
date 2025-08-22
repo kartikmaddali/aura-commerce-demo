@@ -16,7 +16,9 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
   const [brand, setBrand] = useState<BrandConfig | null>(null);
 
   const setBrandFromDomain = (domain: string) => {
+    console.log('BrandProvider: setBrandFromDomain called with domain:', domain);
     const brandConfig = getBrandConfig(domain);
+    console.log('BrandProvider: brand config found:', brandConfig);
     setBrand(brandConfig);
   };
 
@@ -24,14 +26,29 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
 
   // Set default brand for development
   useEffect(() => {
+    console.log('BrandProvider: useEffect triggered, brand:', brand?.name);
     if (typeof window !== 'undefined' && !brand) {
       const domain = window.location.hostname;
+      console.log('BrandProvider: Setting brand for domain:', domain);
       if (domain === 'localhost' || domain === '127.0.0.1') {
         // Default to LuxeLoom for local development
+        console.log('BrandProvider: Setting default brand for localhost');
         setBrandFromDomain('www.luxeloom.com');
       } else {
         setBrandFromDomain(domain);
       }
+    }
+  }, [brand]);
+
+  // Fallback: ensure brand is set after a short delay
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !brand) {
+      const timer = setTimeout(() => {
+        console.log('BrandProvider: Fallback - setting default brand');
+        setBrandFromDomain('www.luxeloom.com');
+      }, 1000);
+      
+      return () => clearTimeout(timer);
     }
   }, [brand]);
 

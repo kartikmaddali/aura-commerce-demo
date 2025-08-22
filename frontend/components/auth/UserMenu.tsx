@@ -12,7 +12,7 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ user }: UserMenuProps) {
-  const { logout, isPremium } = useAuth();
+  const { logout } = useAuth();
   const { brand } = useBrand();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -80,7 +80,7 @@ export function UserMenu({ user }: UserMenuProps) {
         { name: 'Profile', href: '/profile', icon: User },
         { name: 'Orders', href: '/orders', icon: Building },
         { name: 'Wishlist', href: '/wishlist', icon: Heart },
-        ...(brand?.name === 'luxeloom' && isPremium ? [{ name: 'VIP Lounge', href: '/vip-lounge', icon: Crown }] : []),
+        ...(brand?.name === 'luxeloom' && user?.['https://aura-commerce.com/is_premium'] ? [{ name: 'VIP Lounge', href: '/vip-lounge', icon: Crown }] : []),
         { name: 'Settings', href: '/settings', icon: Settings },
       ];
 
@@ -117,7 +117,7 @@ export function UserMenu({ user }: UserMenuProps) {
               <p className="text-sm text-gray-500">{user.email}</p>
               
               {/* Premium Badge */}
-              {brand?.name === 'luxeloom' && isPremium && (
+              {brand?.name === 'luxeloom' && user?.['https://aura-commerce.com/is_premium'] && (
                 <div className="flex items-center space-x-1 mt-2">
                   <Crown className="w-3 h-3 text-luxeloom-secondary" />
                   <span className="text-xs text-luxeloom-secondary font-medium">VIP Member</span>

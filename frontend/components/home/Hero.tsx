@@ -8,7 +8,7 @@ import { ArrowRight, Crown, ShoppingBag, Users } from 'lucide-react';
 
 export function Hero() {
   const { brand } = useBrand();
-  const { isAuthenticated, isPremium } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   if (!brand) return null;
 
@@ -18,8 +18,8 @@ export function Hero() {
         return {
           title: 'Luxury Fashion Redefined',
           subtitle: 'Discover our exclusive collection of high-end fashion and accessories. Where elegance meets sophistication.',
-          cta: isPremium ? 'Shop VIP Collection' : 'Explore Collection',
-          ctaLink: isPremium ? '/vip-lounge' : '/products',
+          cta: user?.['https://aura-commerce.com/is_premium'] ? 'Shop VIP Collection' : 'Explore Collection',
+          ctaLink: user?.['https://aura-commerce.com/is_premium'] ? '/vip-lounge' : '/products',
           secondaryCta: 'Become a VIP Member',
           secondaryCtaLink: '/membership',
           icon: Crown,

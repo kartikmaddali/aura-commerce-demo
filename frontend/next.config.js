@@ -16,6 +16,91 @@ const nextConfig = {
         source: '/logout',
         destination: '/logout.html',
       },
+      // Debug pages
+      {
+        source: '/login-debug-404',
+        destination: '/login-debug-404.html',
+      },
+      {
+        source: '/login-debug',
+        destination: '/login-debug.html',
+      },
+      {
+        source: '/test-auth0-domain',
+        destination: '/test-auth0-domain.html',
+      },
+      {
+        source: '/cdn-test',
+        destination: '/cdn-test.html',
+      },
+      {
+        source: '/test-local-sdk',
+        destination: '/test-local-sdk.html',
+      },
+      {
+        source: '/debug-main',
+        destination: '/debug-main.html',
+      },
+      {
+        source: '/debug-signin',
+        destination: '/debug-signin.html',
+      },
+      {
+        source: '/test-auth-provider',
+        destination: '/test-auth-provider.html',
+      },
+      {
+        source: '/auth-flow-test',
+        destination: '/auth-flow-test.html',
+      },
+      {
+        source: '/clear-auth',
+        destination: '/clear-auth.html',
+      },
+      {
+        source: '/debug-errors',
+        destination: '/debug-errors.html',
+      },
+      {
+        source: '/test-signin',
+        destination: '/test-signin.html',
+      },
+      {
+        source: '/debug-signin-button',
+        destination: '/debug-signin-button.html',
+      },
+      {
+        source: '/simple-test',
+        destination: '/simple-test.html',
+      },
+      {
+        source: '/working-auth',
+        destination: '/working-auth.html',
+      },
+      {
+        source: '/test-auth0-flow',
+        destination: '/test-auth0-flow.html',
+      },
+      {
+        source: '/direct-auth0-test',
+        destination: '/direct-auth0-test.html',
+      },
+      {
+        source: '/simple-test-button',
+        destination: '/simple-test-button.html',
+      },
+      {
+        source: '/force-auth0-test',
+        destination: '/force-auth0-test.html',
+      },
+      {
+        source: '/test-auth0-url',
+        destination: '/test-auth0-url.html',
+      },
+      {
+        source: '/test-external-redirect',
+        destination: '/test-external-redirect.html',
+      },
     ];
   },
 

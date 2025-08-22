@@ -11,7 +11,7 @@ import { ShoppingCart, User, Menu, X, Heart, Crown } from 'lucide-react';
 
 export function Header() {
   const { brand } = useBrand();
-  const { user, isAuthenticated, isPremium } = useAuth();
+  const { user, isAuthenticated, login } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -63,7 +63,7 @@ export function Header() {
         { name: 'Shop', href: '/products' },
         { name: 'Categories', href: '/categories' },
         { name: 'Sale', href: '/sale' },
-        ...(brand.name === 'luxeloom' && isPremium ? [{ name: 'VIP Lounge', href: '/vip-lounge' }] : []),
+        ...(brand.name === 'luxeloom' && user?.['https://aura-commerce.com/is_premium'] ? [{ name: 'VIP Lounge', href: '/vip-lounge' }] : []),
       ];
 
   return (
@@ -101,7 +101,7 @@ export function Header() {
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
             {/* Premium badge for LuxeLoom */}
-            {brand.name === 'luxeloom' && isPremium && (
+            {brand.name === 'luxeloom' && user?.['https://aura-commerce.com/is_premium'] && (
               <div className="flex items-center space-x-1 bg-luxeloom-secondary text-luxeloom-primary px-2 py-1 rounded-full text-xs font-medium">
                 <Crown className="w-3 h-3" />
                 <span>VIP</span>
@@ -127,13 +127,13 @@ export function Header() {
             {isAuthenticated ? (
               <UserMenu user={user!} />
             ) : (
-              <button
-                onClick={() => setIsAuthModalOpen(true)}
+              <a
+                href="/auth/login"
                 className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-md transition-colors"
               >
                 <User className="w-4 h-4" />
-                <span>Sign In</span>
-              </button>
+                <span>Login</span>
+              </a>
             )}
 
             {/* Mobile menu button */}

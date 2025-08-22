@@ -8,27 +8,27 @@ import { getBrandConfig } from '@/types/brand-configs';
 export const getAuth0Config = (domain: string): Auth0Config => {
   const brandConfig = getBrandConfig(domain);
   
-  // Placeholder Auth0 configurations for each brand
+  // Real Auth0 configuration using environment variables
   const configs: Record<string, Auth0Config> = {
     'www.luxeloom.com': {
-      domain: 'luxeloom.auth0.com', // Placeholder Auth0 domain
-      clientId: 'luxeloom_client_id_placeholder',
-      clientSecret: 'luxeloom_client_secret_placeholder',
-      audience: 'https://api.luxeloom.com',
+      domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '',
+      clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
+      clientSecret: '', // Not needed for SPA
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || 'https://api.auracommerce.com',
       scope: 'openid profile email read:products write:orders read:wishlist',
     },
     'www.urbanmarket.com': {
-      domain: 'urbanmarket.auth0.com', // Placeholder Auth0 domain
-      clientId: 'urbanmarket_client_id_placeholder',
-      clientSecret: 'urbanmarket_client_secret_placeholder',
-      audience: 'https://api.urbanmarket.com',
+      domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '',
+      clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
+      clientSecret: '', // Not needed for SPA
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || 'https://api.auracommerce.com',
       scope: 'openid profile email read:products write:orders read:wishlist',
     },
     'b2b.auracommerce.com': {
-      domain: 'aura-wholesale.auth0.com', // Placeholder Auth0 domain
-      clientId: 'aura_wholesale_client_id_placeholder',
-      clientSecret: 'aura_wholesale_client_secret_placeholder',
-      audience: 'https://api.auracommerce.com',
+      domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '',
+      clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
+      clientSecret: '', // Not needed for SPA
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || 'https://api.auracommerce.com',
       scope: 'openid profile email read:products write:orders read:users write:users read:organizations',
     },
   };

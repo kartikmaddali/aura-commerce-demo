@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth0 Domain Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 300px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Auth0 Domain Tester</h1>
+    
+    <div class="test-section">
+        <h3>Test Your Auth0 Domain</h3>
+        <p>Enter your Auth0 domain to test if it's accessible:</p>
+        <input type="text" id="domainInput" placeholder="e.g., your-tenant.us.auth0.com" value="km-personal-demo.us.auth0.com">
+        <button onclick="testDomain()">Test Domain</button>
+        <button onclick="testOpenIDConfig()">Test OpenID Config</button>
+        <div id="domainResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Common Auth0 Domain Patterns</h3>
+        <p>Click to test common domain patterns for your tenant:</p>
+        <button onclick="testPattern('km-personal-demo.auth0.com')">km-personal-demo.auth0.com</button>
+        <button onclick="testPattern('km-personal-demo.us.auth0.com')">km-personal-demo.us.auth0.com</button>
+        <button onclick="testPattern('km-personal-demo.eu.auth0.com')">km-personal-demo.eu.auth0.com</button>
+        <button onclick="testPattern('km-personal-demo.au.auth0.com')">km-personal-demo.au.auth0.com</button>
+        <button onclick="testPattern('km-personal-demo.jp.auth0.com')">km-personal-demo.jp.auth0.com</button>
+        <div id="patternResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>How to Find Your Domain</h3>
+        <ol>
+            <li>Go to <a href="https://manage.auth0.com/" target="_blank">Auth0 Dashboard</a></li>
+            <li>Look at the URL in your browser</li>
+            <li>It should show: <code>https://manage.auth0.com/dashboard/{region}/{tenant-name}/</code></li>
+            <li>Your domain is: <code>{tenant-name}.{region}.auth0.com</code></li>
+        </ol>
+        <p><strong>Example:</strong> If URL shows <code>https://manage.auth0.com/dashboard/us/km-personal-demo/</code></p>
+        <p>Then your domain is: <code>km-personal-demo.us.auth0.com</code></p>
+    </div>
+
+    <script>
+        async function testDomain() {
+            const domain = document.getElementById('domainInput').value;
+            const resultDiv = document.getElementById('domainResult');
+            
+            if (!domain) {
+                resultDiv.innerHTML = 'Please enter a domain';
+                return;
+            }
+
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                // Test domain accessibility
+                const response = await fetch(`https://${domain}`, {
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                
+                resultDiv.innerHTML = `✅ Domain ${domain} is accessible\nStatus: ${response.status || 'OK'}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Domain ${domain} is not accessible\nError: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testOpenIDConfig() {
+            const domain = document.getElementById('domainInput').value;
+            const resultDiv = document.getElementById('domainResult');
+            
+            if (!domain) {
+                resultDiv.innerHTML = 'Please enter a domain';
+                return;
+            }
+
+            resultDiv.innerHTML = 'Testing OpenID configuration...';
+            
+            try {
+                const response = await fetch(`https://${domain}/.well-known/openid_configuration`);
+                
+                if (response.ok) {
+                    const config = await response.json();
+                    resultDiv.innerHTML = `✅ OpenID configuration found!\n\nIssuer: ${config.issuer}\nAuthorization Endpoint: ${config.authorization_endpoint}\nToken Endpoint: ${config.token_endpoint}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.innerHTML = `❌ OpenID configuration not found\nStatus: ${response.status}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error testing OpenID config\nError: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testPattern(pattern) {
+            const resultDiv = document.getElementById('patternResult');
+            resultDiv.innerHTML = `Testing ${pattern}...`;
+            
+            try {
+                const response = await fetch(`https://${pattern}/.well-known/openid_configuration`);
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `✅ SUCCESS: ${pattern} is working!\nThis is likely your correct Auth0 domain.`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.innerHTML = `❌ ${pattern} - Status: ${response.status}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `❌ ${pattern} - Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>

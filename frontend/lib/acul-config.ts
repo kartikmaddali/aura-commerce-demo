@@ -18,26 +18,26 @@ export interface BrandACULConfig {
 // Brand-specific Auth0 configurations for ACUL
 export const brandACULConfigs: BrandACULConfig = {
   'www.luxeloom.com': {
-    domain: 'luxeloom.auth0.com',
-    clientId: 'luxeloom_client_id',
-    audience: 'https://api.luxeloom.com',
+    domain: 'km-personal-demo.us.auth0.com',
+    clientId: '6xrsdinahkTjtRGGDsAQFITm9ZEzR9E2',
+    audience: 'https://api.auracommerce.com',
     scope: 'openid profile email read:products write:orders read:wishlist',
     redirectUri: 'https://www.luxeloom.com/callback',
     logoutUrl: 'https://www.luxeloom.com',
     customDomain: 'www.luxeloom.com'
   },
   'www.urbanmarket.com': {
-    domain: 'urbanmarket.auth0.com',
-    clientId: 'urbanmarket_client_id',
-    audience: 'https://api.urbanmarket.com',
+    domain: 'km-personal-demo.us.auth0.com',
+    clientId: '6xrsdinahkTjtRGGDsAQFITm9ZEzR9E2',
+    audience: 'https://api.auracommerce.com',
     scope: 'openid profile email read:products write:orders read:wishlist',
     redirectUri: 'https://www.urbanmarket.com/callback',
     logoutUrl: 'https://www.urbanmarket.com',
     customDomain: 'www.urbanmarket.com'
   },
   'b2b.auracommerce.com': {
-    domain: 'aura-wholesale.auth0.com',
-    clientId: 'aura_wholesale_client_id',
+    domain: 'km-personal-demo.us.auth0.com',
+    clientId: '6xrsdinahkTjtRGGDsAQFITm9ZEzR9E2',
     audience: 'https://api.auracommerce.com',
     scope: 'openid profile email read:products write:orders read:users write:users read:organizations',
     redirectUri: 'https://b2b.auracommerce.com/callback',
@@ -49,16 +49,16 @@ export const brandACULConfigs: BrandACULConfig = {
 // Development configurations (for localhost)
 export const devACULConfigs: BrandACULConfig = {
   'localhost': {
-    domain: 'dev-aura.auth0.com',
-    clientId: 'dev_aura_client_id',
+    domain: 'km-personal-demo.us.auth0.com',
+    clientId: '6xrsdinahkTjtRGGDsAQFITm9ZEzR9E2',
     audience: 'https://api.auracommerce.com',
     scope: 'openid profile email read:products write:orders',
     redirectUri: 'http://localhost:3000/callback',
     logoutUrl: 'http://localhost:3000'
   },
   'localhost:3000': {
-    domain: 'dev-aura.auth0.com',
-    clientId: 'dev_aura_client_id',
+    domain: 'km-personal-demo.us.auth0.com',
+    clientId: '6xrsdinahkTjtRGGDsAQFITm9ZEzR9E2',
     audience: 'https://api.auracommerce.com',
     scope: 'openid profile email read:products write:orders',
     redirectUri: 'http://localhost:3000/callback',
